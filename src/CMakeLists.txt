@@ -21,7 +21,7 @@ target_link_libraries(Modbus Modbus_Core)
 
 if(MODBUS_COMMUNICATION)
     message("Modbus communication is experimental")
-    add_subdirectory(TCP)
+    #add_subdirectory(TCP)
     add_subdirectory(Serial)
-    target_link_libraries(Modbus Modbus_TCP Modbus_Serial)
+    target_link_libraries(Modbus Modbus_Serial) #Modbus_TCP
 endif()

@@ -133,6 +133,28 @@ std::string ModbusRequest::toString() const noexcept {
   return result.str();
 }
 
+int MB::getNumBytesFromDataType(MB::DataType type) {
+    switch (type) {
+    case u8t:
+        return 1;
+
+    case u16t:
+        return 2;
+
+    case u32t:
+    case f32t:
+        return 4;
+
+    case s8t:
+        return 8;
+
+    case s50t:
+        return 50;
+    }
+
+    return -1;
+}
+
 std::vector<uint8_t> ModbusRequest::toRaw() const noexcept {
   std::vector<uint8_t> result;
   result.reserve(6);

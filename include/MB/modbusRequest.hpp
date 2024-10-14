@@ -16,6 +16,24 @@
  * Namespace that contains whole project
  */
 namespace MB {
+
+    enum DataType {
+        f32t,
+        s8t,
+        s50t,
+        u8t,
+        u16t,
+        u32t
+    };
+
+    struct ModbusParam {
+        uint16_t addr{ 0x0000 };
+        DataType type;
+        std::string desc;
+    };
+
+    int getNumBytesFromDataType(MB::DataType type);
+
 /**
  * This class represent Modbus response, it allows
  * user to manipulate and display it in various ways.

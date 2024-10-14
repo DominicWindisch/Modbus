@@ -43,3 +43,6 @@ compile_commands.json
 .clang_complete
 .cache
 .clangd
+
+#compiled
+.vs
