@@ -18,7 +18,7 @@ if(MODBUS_TESTS)
 endif()
 
 if(MODBUS_EXAMPLE)
-    add_executable(ex example/main.cpp)
+    add_executable(ex example/main.cpp src/modbusVoegtlin.cpp)
     target_link_libraries(ex Modbus)
 endif()
 
