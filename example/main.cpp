@@ -4,13 +4,6 @@
 
 #include <MB/modbusVoegtlin.hpp>
 
-#include <algorithm>
-#include <chrono>
-#include <iomanip>
-#include <iostream>
-#include <map>
-#include <thread>
-
 struct Spinner {
     const std::string chars = "/-\\|/-\\|";
     int charIdx             = 0;
@@ -57,7 +50,7 @@ int main(int argc, char *argv[]) {
             return EXIT_FAILURE;
         }
 
-        for (auto i = 0; i < 2000; i++) {
+        for (auto i = 0; i < 24; i++) {
             auto temperature = MFC.readParam<float>(GSC::MeasTemperature);
             auto flow        = MFC.readParam<float>(GSC::MeasGasFlow);
             auto setp        = MFC.readParam<float>(GSC::SetGasFlow);
@@ -67,9 +60,11 @@ int main(int argc, char *argv[]) {
             std::cout << "\r" << spinner.next() << " Status (" << status << "|" << hwError
                       << "): " << flow << " " << unit << " / " << setp << " " << unit
                       << " | " << temperature << "C" << std::flush;
-            std::this_thread::sleep_for(std::chrono::milliseconds(200));
         }
-        std::cout << "\n";
+        std::cout << "\nTerminating..." << std::flush;
+
+        MFC.writeParam(GSC::SetGasFlow, 0.0f);
+        std::cout << "done.\n";
 
     } catch (std::runtime_error &e) {
         std::cout << "Something went wrong: " << e.what() << "\n";
